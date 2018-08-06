@@ -1,0 +1,41 @@
+/* Fixed navbar */
+body {
+    /*padding-top: 90px;*/
+}
+/* General sizing */
+ul.dropdown-lr {
+    width: 300px;
+}
+
+/* mobile fix */
+@media (max-width: 768px) {
+    .dropdown-lr h3 {
+        color: #eee;
+    }
+    .dropdown-lr label {
+        color: #eee;
+    }
+}
+
+.navbar .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+#mainNav{
+   margin-bottom: 0px !important;
+}
+
+.nav li.dropdown a.dropdown-toggle{
+    color: #eee;
+}
+
+#mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus  {
+    color: #eee !important;
+    background: #18BC9C !important;
+    border-radius:10px;
+}
+#mainNav .navbar-nav li.nav-item a.nav-link:hover {
+    color: #eee !important;
+    background: #18BC9C !important;
+    border-radius:10px;
+}
