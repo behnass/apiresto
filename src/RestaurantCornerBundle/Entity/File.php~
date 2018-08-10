@@ -1,0 +1,50 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * File
+ *
+ * @ORM\Table(name="file", indexes={@ORM\Index(name="fk_file_restaurant1_idx", columns={"restaurant_idrestaurant"})})
+ * @ORM\Entity
+ */
+class File
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idfile", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idfile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name_file", type="string", length=45, nullable=false)
+     */
+    private $nameFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="storage_name", type="string", length=80, nullable=false)
+     */
+    private $storageName;
+
+    /**
+     * @var \Restaurant
+     *
+     * @ORM\ManyToOne(targetEntity="Restaurant")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="restaurant_idrestaurant", referencedColumnName="idrestaurant")
+     * })
+     */
+    private $restaurantrestaurant;
+
+
+}
+

@@ -1,0 +1,53 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * BookingStatus
+ *
+ * @ORM\Table(name="booking_status", indexes={@ORM\Index(name="fk_booking_status_booking1_idx", columns={"booking_idbooking"}), @ORM\Index(name="fk_booking_status_restaurant1_idx", columns={"restaurant_idrestaurant"})})
+ * @ORM\Entity
+ */
+class BookingStatus
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idbooking_status", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idbookingStatus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="booking_in_status", type="string", length=45, nullable=true)
+     */
+    private $bookingInStatus;
+
+    /**
+     * @var \Booking
+     *
+     * @ORM\ManyToOne(targetEntity="Booking")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="booking_idbooking", referencedColumnName="idbooking")
+     * })
+     */
+    private $bookingbooking;
+
+    /**
+     * @var \Restaurant
+     *
+     * @ORM\ManyToOne(targetEntity="Restaurant")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="restaurant_idrestaurant", referencedColumnName="idrestaurant")
+     * })
+     */
+    private $restaurantrestaurant;
+
+
+}
+

@@ -1,0 +1,110 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Users
+ *
+ * @ORM\Table(name="users")
+ * @ORM\Entity
+ */
+class Users
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idusers", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idusers;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=15, nullable=false)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isActive", type="boolean", nullable=false)
+     */
+    private $isactive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surname", type="string", length=100, nullable=true)
+     */
+    private $surname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmToken", type="string", length=100, nullable=true)
+     */
+    private $confirmtoken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdDate", type="datetime", nullable=false)
+     */
+    private $createddate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="disabledDate", type="datetime", nullable=true)
+     */
+    private $disableddate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastConnection", type="datetime", nullable=false)
+     */
+    private $lastconnection;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="string", length=255, nullable=false)
+     */
+    private $roles;
+
+
+}
+

@@ -1,0 +1,71 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TmpViewOrderItems
+ *
+ * @ORM\Table(name="tmp_view_order_items", indexes={@ORM\Index(name="fk_tmp_view_order_items_tmp_view_customers1_idx", columns={"tmp_view_customers_idcustomer"})})
+ * @ORM\Entity
+ */
+class TmpViewOrderItems
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idcommand", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idcommand;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_number_random", type="integer", nullable=false)
+     */
+    private $orderNumberRandom;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_time_order", type="datetime", nullable=false)
+     */
+    private $dateTimeOrder;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_products", type="string", length=250, nullable=false)
+     */
+    private $orderProducts;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="number_item", type="boolean", nullable=false)
+     */
+    private $numberItem;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total_amount_order", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $totalAmountOrder;
+
+    /**
+     * @var \TmpViewCustomers
+     *
+     * @ORM\ManyToOne(targetEntity="TmpViewCustomers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tmp_view_customers_idcustomer", referencedColumnName="idcustomer")
+     * })
+     */
+    private $tmpViewCustomerscustomer;
+
+
+}
+

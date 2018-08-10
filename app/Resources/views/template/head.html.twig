@@ -1,0 +1,10 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{{ 'translate.title' |trans}}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% block stylesheets %}  {% include "template/css.html.twig" %} {% endblock %}
+    {% block javascripts %}  {% include "template/javascripts.html.twig" %} {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>

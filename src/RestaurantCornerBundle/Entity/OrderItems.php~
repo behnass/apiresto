@@ -1,0 +1,71 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * OrderItems
+ *
+ * @ORM\Table(name="order_items", indexes={@ORM\Index(name="fk_command_customer_idx", columns={"customer_idcustomer"})})
+ * @ORM\Entity
+ */
+class OrderItems
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idcommand", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idcommand;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_number_random", type="integer", nullable=false)
+     */
+    private $orderNumberRandom;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_time_order", type="datetime", nullable=false)
+     */
+    private $dateTimeOrder;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_products", type="string", length=250, nullable=false)
+     */
+    private $orderProducts;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="number_item", type="boolean", nullable=false)
+     */
+    private $numberItem;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total_amount_order", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $totalAmountOrder;
+
+    /**
+     * @var \Customers
+     *
+     * @ORM\ManyToOne(targetEntity="Customers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="customer_idcustomer", referencedColumnName="idcustomer")
+     * })
+     */
+    private $customercustomer;
+
+
+}
+

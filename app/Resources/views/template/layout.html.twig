@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}  {% include "template/head.html.twig"  %}   {% endblock %}
+
+{% block body %}
+
+    <!-- Navigation -->
+    {% block navbar %}{% include "template/navbar.html.twig" %}{% endblock %}
+
+    <!-- Header -->
+    {% block header %}{% include "template/header.html.twig" %}{% endblock %}
+
+    {%block container %}
+        <!-- panel Grid Section -->
+        {% block panel %}{% include "template/panel.html.twig" %}{% endblock %}
+
+        <!-- About Section -->
+        {% block about %}{% include "template/about.html.twig" %}{% endblock %}
+
+        <!-- Contact Section -->
+        {% block contact %}{% include "template/contact.html.twig" %}{% endblock %}
+
+    {% endblock %}
+
+    <!-- Footer -->
+    {% block footer %}{% include "template/footer.html.twig" %}{% endblock %}
+
+    <!-- copyright -->
+    {% block copyright %}{% include "template/copyright.html.twig" %}{% endblock %}
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    {% block scroll %}{% include "template/scroll.html.twig" %}{% endblock %}
+
+    <!-- Portfolio Modals -->
+    {#{% block portfolioresto %}{% include "template/portfolioresto.html.twig" %}{% endblock %}#}
+    {% block javascripts %}{% include "template/javascriptbody.html.twig" %}{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,64 @@
+<?php
+
+namespace RestaurantCornerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Booking
+ *
+ * @ORM\Table(name="booking", indexes={@ORM\Index(name="fk_booking_customers1_idx", columns={"customers_idcustomer"})})
+ * @ORM\Entity
+ */
+class Booking
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idbooking", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idbooking;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="booking_number_random", type="integer", nullable=false)
+     */
+    private $bookingNumberRandom;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="number_customer", type="boolean", nullable=true)
+     */
+    private $numberCustomer;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_booking", type="datetime", nullable=false)
+     */
+    private $dateBooking;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="string", length=55, nullable=true)
+     */
+    private $details;
+
+    /**
+     * @var \Customers
+     *
+     * @ORM\ManyToOne(targetEntity="Customers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="customers_idcustomer", referencedColumnName="idcustomer")
+     * })
+     */
+    private $customerscustomer;
+
+
+}
+
