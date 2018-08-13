@@ -9,6 +9,7 @@
 namespace RestaurantCornerBundle\Security;
 
 
+use RestaurantCornerBundle\Entity\Users;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -60,7 +61,25 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     {
         $plainPassword = $credentials['password'];
         if ($this->encoder->isPasswordValid($user, $plainPassword)) {
-            return true;
+            $encoder = $this->get('security.password_encoder');
+            $password = $encoder->encodePassword($user, $user->getPassword());
+
+            // Save
+
+//            $em = $this->getDoctrine()->getManager();
+//
+//            $users = new Users();
+//            $users->setUsername($user->getUsername());
+//            $users->setPassword($user->getPassword());
+            $repository = $this->getDoctrine()->getRepository(Users::class);
+            // look for a single user by name and password
+            $user_exist = $repository->findOneBy(['name' => $user->getUsername(),$user->getPassword()]);
+
+            if ($user_exist) {
+                return true;
+            }else{
+                return false;
+            }
         }
 
         throw new BadCredentialsException();

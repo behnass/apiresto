@@ -3,14 +3,19 @@
 namespace RestaurantCornerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * Users
  *
  * @ORM\Table(name="users")
+ * @UniqueEntity(fields="email", message="This email is already in use")
  * @ORM\Entity
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var integer
@@ -403,5 +408,16 @@ class Users
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

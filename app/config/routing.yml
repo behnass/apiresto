@@ -3,5 +3,9 @@ restaurant_corner:
     prefix:   /
 
 app:
-    resource: '@AppBundle/Controller/'
+    resource: '@RestaurantCornerBundle/Controller/'
     type: annotation
+
+#app:
+#    resource: '@AppBundle/Controller/'
+#    type: annotation

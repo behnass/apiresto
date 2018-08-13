@@ -6,7 +6,7 @@ use DateTime;
 use RestaurantCornerBundle\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use RestaurantCornerBundle\Form\UserType;
 
 class RegistrationController extends Controller
@@ -38,7 +38,8 @@ class RegistrationController extends Controller
 
             return $this->redirectToRoute('login');
         }
-        return $this->render('RestaurantCornerBundle:Registration:register.html.twig', array('form' => $form->createView(),));
+        return $this->render('RestaurantCornerBundle:Registration:r
+        egister.html.twig', array('form' => $form->createView(),));
     }
 
     /**
