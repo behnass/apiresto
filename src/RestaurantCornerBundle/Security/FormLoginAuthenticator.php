@@ -22,16 +22,19 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Core\Security;
+use Doctrine\ORM\EntityManagerInterface ;
 
 class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $router;
     private $encoder;
+    private $em;
 
-    public function __construct(RouterInterface $router, UserPasswordEncoderInterface $encoder)
+    public function __construct(RouterInterface $router, UserPasswordEncoderInterface $encoder, EntityManagerInterface  $em)
     {
         $this->router = $router;
         $this->encoder = $encoder;
+        $this->em = $em;
     }
 
     public function getCredentials(Request $request)
@@ -40,54 +43,49 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
             return;
         }
 
-        $email = $request->request->get('_email');
-        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        $username = $request->request->get('_username');
         $password = $request->request->get('_password');
+        $request->getSession()->set(Security::LAST_USERNAME, $username);
 
         return [
-            'email' => $email,
-            'password' => $password,
+            '_email' => $username,
+            '_password' => $password,
         ];
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $email = $credentials['email'];
-
-        return $userProvider->loadUserByUsername($email);
+        $email = $credentials['_email'];
+        $username = $credentials['_email'];
+        $object = $this->em->getRepository('RestaurantCornerBundle:Users')->findOneBy(['email' => $email]);
+        if($object){
+            return $object;
+        }
+        else{
+            return $this->em->getRepository('RestaurantCornerBundle:Users')->findOneBy(['username' => $username]);
+        }
+//        return $userProvider->loadUserByUsername($email);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $plainPassword = $credentials['password'];
-        if ($this->encoder->isPasswordValid($user, $plainPassword)) {
-            $encoder = $this->get('security.password_encoder');
-            $password = $encoder->encodePassword($user, $user->getPassword());
-
-            // Save
-
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $users = new Users();
-//            $users->setUsername($user->getUsername());
-//            $users->setPassword($user->getPassword());
-            $repository = $this->getDoctrine()->getRepository(Users::class);
-            // look for a single user by name and password
-            $user_exist = $repository->findOneBy(['name' => $user->getUsername(),$user->getPassword()]);
-
-            if ($user_exist) {
-                return true;
-            }else{
-                return false;
-            }
+//        die("checkCredentials");
+        $plainPassword = $credentials['_password'];
+        if ($this->encoder->isPasswordValid($user, $plainPassword))
+        {
+//            var_dump($user);
+//            var_dump($plainPassword);
+//            die("isPasswordValid");
+            return true;
         }
-
+        die("bad BadCredentialsException ");
         throw new BadCredentialsException();
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $url = $this->router->generate('welcome');
+//        die("onAuthenticationSuccess");
+        $url = $this->router->generate('login');
 
         return new RedirectResponse($url);
     }
@@ -95,7 +93,8 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-
+        var_dump($request->getSession()->getId(Security::AUTHENTICATION_ERROR));
+        die("onAuthenticationFailure");
         $url = $this->router->generate('login');
 
         return new RedirectResponse($url);
@@ -103,11 +102,13 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl()
     {
+        die("getLoginUrl");
         return $this->router->generate('login');
     }
 
     protected function getDefaultSuccessRedirectUrl()
     {
+        die("getDefaultSuccessRedirectUrl");
         return $this->router->generate('welcome');
     }
 

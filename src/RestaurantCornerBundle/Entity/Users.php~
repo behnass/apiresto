@@ -94,16 +94,16 @@ class Users
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnection", type="datetime", nullable=false)
+     * @ORM\Column(name="lastConnection", type="datetime", nullable=true)
      */
     private $lastconnection;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="roles", type="string", length=255, nullable=false)
+     * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
-    private $roles;
+    private $role;
 
 
 }

@@ -12,7 +12,7 @@ use RestaurantCornerBundle\Form\UserType;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="register")
+     * @Route("/{_locale}/register", name="register")
      */
     public function registerAction(Request $request)
     {
@@ -25,7 +25,8 @@ class RegistrationController extends Controller
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             // Set their role
-            $user->setRoles('ROLE_USER');
+            $user->setRole('ROLE_USER');
+            $user->setName($user->getUsername());
             //other information
             $user->setCreateddate(new DateTime());
             $user->setSalt($password);
@@ -38,15 +39,15 @@ class RegistrationController extends Controller
 
             return $this->redirectToRoute('login');
         }
-        return $this->render('RestaurantCornerBundle:Registration:r
-        egister.html.twig', array('form' => $form->createView(),));
+        return $this->render('RestaurantCornerBundle:Registration:register.html.twig', array('form' => $form->createView(),));
     }
 
     /**
-     * @Route("/register/restaurer", name="restaurer")
+     * @Route("/{_locale}/register/restaurer", name="restaurer")
      */
     public function registeRestaurerAction(Request $request)
     {
+        die("registeRestaurerAction");
         $user = new Users();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

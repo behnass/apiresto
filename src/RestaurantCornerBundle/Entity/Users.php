@@ -4,15 +4,11 @@ namespace RestaurantCornerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 
 /**
  * Users
  *
  * @ORM\Table(name="users")
- * @UniqueEntity(fields="email", message="This email is already in use")
  * @ORM\Entity
  */
 class Users implements UserInterface
@@ -99,16 +95,16 @@ class Users implements UserInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnection", type="datetime", nullable=false)
+     * @ORM\Column(name="lastConnection", type="datetime", nullable=true)
      */
     private $lastconnection;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="roles", type="string", length=255, nullable=false)
+     * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
-    private $roles;
+    private $role;
 
 
 
@@ -387,27 +383,48 @@ class Users implements UserInterface
     }
 
     /**
-     * Set roles
+     * Set role
      *
-     * @param string $roles
+     * @param string $role
      *
      * @return Users
      */
-    public function setRoles($roles)
+    public function setRole($role)
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
 
     /**
-     * Get roles
+     * Get role
      *
      * @return string
      */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
     public function getRoles()
     {
-        return $this->roles;
+        return [$this->getRole()];
     }
 
     /**

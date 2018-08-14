@@ -15,15 +15,18 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use RestaurantCornerBundle\Entity\Users;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
 
-    public function buildFormClient(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('username', TextType::class, array('constraints' => array(new Length(array('min' => 3)), new NotBlank(), new Length(array('max' => 15)))  ) )
+            ->add('email', EmailType::class, array('constraints' => new Length(array('max' => 100))  ) )
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
@@ -31,16 +34,15 @@ class UserType extends AbstractType
             ]);
     }
 
-    public function buildFormRestaurer(FormBuilderInterface $builder, array $options)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $builder
-            ->add('name', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password'],
-            ]);
+        $resolver->setDefaults(array(
+            'data_class' => Users::class,
+        ));
     }
 
+    public function getName()
+    {
+        return 'user';
+    }
 }

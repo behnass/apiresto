@@ -36,4 +36,5 @@ services:
 
     RestaurantCornerBundle.form_login_authenticator:
             class: RestaurantCornerBundle\Security\FormLoginAuthenticator
+            autowire: true
             arguments: ["@router", "@security.password_encoder"]
